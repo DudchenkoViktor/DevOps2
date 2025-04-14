@@ -3,6 +3,8 @@
 
 int main() {
     Trigonometry trig;
-    std::cout << "Result: " << trig.FuncA() << std::endl;
+    double x = 0.5;  // Пример значения |x| < 1
+    int n = 3;       // Количество элементов ряда
+    std::cout << "Result: " << trig.FuncA(x, n) << std::endl;
     return 0;
 }
