@@ -1,0 +1,7 @@
+Package: devops2
+Version: 1.0
+Section: base
+Priority: optional
+Architecture: amd64
+Maintainer: DudchenkoViktor <viktordudcenko525@gmail.com>
+Description: DevOps2 test package
