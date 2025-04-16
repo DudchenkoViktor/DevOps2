@@ -387,7 +387,6 @@ on `(hostname || uname -n) 2>/dev/null | sed 1q`
 
 # Files that config.status was made for.
 config_files=" Makefile"
-config_headers=" config.h"
 config_commands=" depfiles"
 
 ac_cs_usage="\
@@ -406,14 +405,9 @@ Usage: $0 [OPTION]... [TAG]...
       --recheck    update $as_me by reconfiguring in the same conditions
       --file=FILE[:TEMPLATE]
                    instantiate the configuration file FILE
-      --header=FILE[:TEMPLATE]
-                   instantiate the configuration header FILE
 
 Configuration files:
 $config_files
-
-Configuration headers:
-$config_headers
 
 Configuration commands:
 $config_commands
@@ -430,7 +424,7 @@ Copyright (C) 2021 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/home/viktor/devops2-1.0'
+ac_pwd='/home/viktor/devops2-final'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
 MKDIR_P='/usr/bin/mkdir -p'
@@ -476,18 +470,7 @@ do
     esac
     as_fn_append CONFIG_FILES " '$ac_optarg'"
     ac_need_defaults=false;;
-  --header | --heade | --head | --hea )
-    $ac_shift
-    case $ac_optarg in
-    *\'*) ac_optarg=`printf "%s\n" "$ac_optarg" | sed "s/'/'\\\\\\\\''/g"` ;;
-    esac
-    as_fn_append CONFIG_HEADERS " '$ac_optarg'"
-    ac_need_defaults=false;;
-  --he | --h)
-    # Conflict between --help and --header
-    as_fn_error $? "ambiguous option: \`$1'
-Try \`$0 --help' for more information.";;
-  --help | --hel | -h )
+  --he | --h |  --help | --hel | -h )
     printf "%s\n" "$ac_cs_usage"; exit ;;
   -q | -quiet | --quiet | --quie | --qui | --qu | --q \
   | -silent | --silent | --silen | --sile | --sil | --si | --s)
@@ -541,7 +524,6 @@ do
   case $ac_config_target in
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
-    "config.h") CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac
@@ -554,7 +536,6 @@ done
 # bizarre bug on SunOS 4.1.3.
 if $ac_need_defaults; then
   test ${CONFIG_FILES+y} || CONFIG_FILES=$config_files
-  test ${CONFIG_HEADERS+y} || CONFIG_HEADERS=$config_headers
   test ${CONFIG_COMMANDS+y} || CONFIG_COMMANDS=$config_commands
 fi
 
@@ -644,12 +625,12 @@ S["mkdir_p"]="$(MKDIR_P)"
 S["MKDIR_P"]="/usr/bin/mkdir -p"
 S["INSTALL_STRIP_PROGRAM"]="$(install_sh) -c -s"
 S["STRIP"]=""
-S["install_sh"]="${SHELL} /home/viktor/devops2-1.0/install-sh"
-S["MAKEINFO"]="${SHELL} '/home/viktor/devops2-1.0/missing' makeinfo"
-S["AUTOHEADER"]="${SHELL} '/home/viktor/devops2-1.0/missing' autoheader"
-S["AUTOMAKE"]="${SHELL} '/home/viktor/devops2-1.0/missing' automake-1.16"
-S["AUTOCONF"]="${SHELL} '/home/viktor/devops2-1.0/missing' autoconf"
-S["ACLOCAL"]="${SHELL} '/home/viktor/devops2-1.0/missing' aclocal-1.16"
+S["install_sh"]="${SHELL} /home/viktor/devops2-final/install-sh"
+S["MAKEINFO"]="${SHELL} '/home/viktor/devops2-final/missing' makeinfo"
+S["AUTOHEADER"]="${SHELL} '/home/viktor/devops2-final/missing' autoheader"
+S["AUTOMAKE"]="${SHELL} '/home/viktor/devops2-final/missing' automake-1.16"
+S["AUTOCONF"]="${SHELL} '/home/viktor/devops2-final/missing' autoconf"
+S["ACLOCAL"]="${SHELL} '/home/viktor/devops2-final/missing' aclocal-1.16"
 S["VERSION"]="1.0"
 S["PACKAGE"]="program"
 S["CYGPATH_W"]="echo"
@@ -664,7 +645,8 @@ S["LIBS"]=""
 S["ECHO_T"]=""
 S["ECHO_N"]="-n"
 S["ECHO_C"]=""
-S["DEFS"]="-DHAVE_CONFIG_H"
+S["DEFS"]="-DPACKAGE_NAME=\\\"program\\\" -DPACKAGE_TARNAME=\\\"program\\\" -DPACKAGE_VERSION=\\\"1.0\\\" -DPACKAGE_STRING=\\\"program\\ 1.0\\\" -DPACKAGE_BUGREPORT=\\\"viktordud"\
+"cenko525@gmail.com\\\" -DPACKAGE_URL=\\\"\\\" -DPACKAGE=\\\"program\\\" -DVERSION=\\\"1.0\\\""
 S["mandir"]="${datarootdir}/man"
 S["localedir"]="${datarootdir}/locale"
 S["libdir"]="${exec_prefix}/lib"
@@ -732,57 +714,8 @@ fi < "$ac_tmp/subs1.awk" > "$ac_tmp/subs.awk" \
   || as_fn_error $? "could not setup config files machinery" "$LINENO" 5
 fi # test -n "$CONFIG_FILES"
 
-# Set up the scripts for CONFIG_HEADERS section.
-# No need to generate them if there are no CONFIG_HEADERS.
-# This happens for instance with `./config.status Makefile'.
-if test -n "$CONFIG_HEADERS"; then
-cat >"$ac_tmp/defines.awk" <<\_ACAWK ||
-BEGIN {
-D["PACKAGE_NAME"]=" \"program\""
-D["PACKAGE_TARNAME"]=" \"program\""
-D["PACKAGE_VERSION"]=" \"1.0\""
-D["PACKAGE_STRING"]=" \"program 1.0\""
-D["PACKAGE_BUGREPORT"]=" \"viktordudcenko525@gmail.com\""
-D["PACKAGE_URL"]=" \"\""
-D["PACKAGE"]=" \"program\""
-D["VERSION"]=" \"1.0\""
-  for (key in D) D_is_set[key] = 1
-  FS = ""
-}
-/^[\t ]*#[\t ]*(define|undef)[\t ]+[_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ][_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789]*([\t (]|$)/ {
-  line = $ 0
-  split(line, arg, " ")
-  if (arg[1] == "#") {
-    defundef = arg[2]
-    mac1 = arg[3]
-  } else {
-    defundef = substr(arg[1], 2)
-    mac1 = arg[2]
-  }
-  split(mac1, mac2, "(") #)
-  macro = mac2[1]
-  prefix = substr(line, 1, index(line, defundef) - 1)
-  if (D_is_set[macro]) {
-    # Preserve the white space surrounding the "#".
-    print prefix "define", macro P[macro] D[macro]
-    next
-  } else {
-    # Replace #undef with comments.  This is necessary, for example,
-    # in the case of _POSIX_SOURCE, which is predefined and required
-    # on some systems where configure will not decide to define it.
-    if (defundef == "undef") {
-      print "/*", prefix defundef, macro, "*/"
-      next
-    }
-  }
-}
-{ print }
-_ACAWK
-  as_fn_error $? "could not setup config headers machinery" "$LINENO" 5
-fi # test -n "$CONFIG_HEADERS"
 
-
-eval set X "  :F $CONFIG_FILES  :H $CONFIG_HEADERS    :C $CONFIG_COMMANDS"
+eval set X "  :F $CONFIG_FILES      :C $CONFIG_COMMANDS"
 shift
 for ac_tag
 do
@@ -1003,64 +936,7 @@ which seems to be undefined.  Please make sure it is defined" >&2;}
   esac \
   || as_fn_error $? "could not create $ac_file" "$LINENO" 5
  ;;
-  :H)
-  #
-  # CONFIG_HEADER
-  #
-  if test x"$ac_file" != x-; then
-    {
-      printf "%s\n" "/* $configure_input  */" >&1 \
-      && eval '$AWK -f "$ac_tmp/defines.awk"' "$ac_file_inputs"
-    } >"$ac_tmp/config.h" \
-      || as_fn_error $? "could not create $ac_file" "$LINENO" 5
-    if diff "$ac_file" "$ac_tmp/config.h" >/dev/null 2>&1; then
-      { printf "%s\n" "$as_me:${as_lineno-$LINENO}: $ac_file is unchanged" >&5
-printf "%s\n" "$as_me: $ac_file is unchanged" >&6;}
-    else
-      rm -f "$ac_file"
-      mv "$ac_tmp/config.h" "$ac_file" \
-	|| as_fn_error $? "could not create $ac_file" "$LINENO" 5
-    fi
-  else
-    printf "%s\n" "/* $configure_input  */" >&1 \
-      && eval '$AWK -f "$ac_tmp/defines.awk"' "$ac_file_inputs" \
-      || as_fn_error $? "could not create -" "$LINENO" 5
-  fi
-# Compute "$ac_file"'s index in $config_headers.
-_am_arg="$ac_file"
-_am_stamp_count=1
-for _am_header in $config_headers :; do
-  case $_am_header in
-    $_am_arg | $_am_arg:* )
-      break ;;
-    * )
-      _am_stamp_count=`expr $_am_stamp_count + 1` ;;
-  esac
-done
-echo "timestamp for $_am_arg" >`$as_dirname -- "$_am_arg" ||
-$as_expr X"$_am_arg" : 'X\(.*[^/]\)//*[^/][^/]*/*$' \| \
-	 X"$_am_arg" : 'X\(//\)[^/]' \| \
-	 X"$_am_arg" : 'X\(//\)$' \| \
-	 X"$_am_arg" : 'X\(/\)' \| . 2>/dev/null ||
-printf "%s\n" X"$_am_arg" |
-    sed '/^X\(.*[^/]\)\/\/*[^/][^/]*\/*$/{
-	    s//\1/
-	    q
-	  }
-	  /^X\(\/\/\)[^/].*/{
-	    s//\1/
-	    q
-	  }
-	  /^X\(\/\/\)$/{
-	    s//\1/
-	    q
-	  }
-	  /^X\(\/\).*/{
-	    s//\1/
-	    q
-	  }
-	  s/.*/./; q'`/stamp-h$_am_stamp_count
- ;;
+
 
   :C)  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: executing $ac_file commands" >&5
 printf "%s\n" "$as_me: executing $ac_file commands" >&6;}
