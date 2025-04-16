@@ -1,9 +1,7 @@
+// opp/trigonometry.h
 #ifndef TRIGONOMETRY_H
 #define TRIGONOMETRY_H
 
-class Trigonometry {
-public:
-    double FuncA(double x, int n);
-};
+double calculateFunction(double x, int n);
 
 #endif

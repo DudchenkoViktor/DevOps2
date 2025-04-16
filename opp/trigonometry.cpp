@@ -1,18 +1,18 @@
-#include "trigonometry.h"
+#include "opp/trigonometry.h"
 #include <cmath>
+#include <iostream> // Добавляем этот include
 
-double Trigonometry::FuncA(double x, int n) {
-    if (fabs(x) >= 1) return NAN; // Проверка условия |x| < 1
+double calculateFunction(double x, int n) {
+    if(n <= 0 || x >= 1.0 || x <= -1.0) return 0;
     double sum = 0;
-    for (int i = 0; i < n; ++i) {
-        sum += pow(x, i);
+    double term = 1.0;
+    
+    for(int i = 0; i < n; ++i) {
+        sum += term;
+        term *= x;
+        
+        // Отладочный вывод
+        std::cout << "Step " << i << ": term=" << term << " sum=" << sum << std::endl;
     }
     return sum;
 }
-
-/**
- * Calculates the sum of the first n terms of the series 1/(1-x).
- * @param x Base value (|x| must be < 1).
- * @param n Number of terms to sum.
- * @return Sum of the series or NAN if |x| >= 1.
- */

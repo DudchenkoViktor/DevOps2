@@ -1,8 +1,12 @@
 #!/bin/bash
-for i in {1..500}; do  # 20 параллельных процессов вместо 5
+for i in {1..20}; do
     while true; do
-        sleep $((1 + RANDOM % 2))  # Интервал 1-3 секунды
-        curl -s "http://localhost?sleep=$((RANDOM % 2))" >/dev/null &
+        sleep_time=$((RANDOM % 3 + 1))  # 1-3 секунды
+        sleep $sleep_time
+        curl -s "http://localhost?sleep=$((RANDOM % 3))" >/dev/null &
     done &
 done
-wait
+
+# Остановка через 5 минут
+sleep 300
+pkill -f "curl"
