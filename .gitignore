@@ -1,0 +1,14 @@
+*.o
+*.Po
+*.tar.gz
+*.deb
+autom4te.cache/
+.deps/
+config.*
+Makefile.in
+program
+test-driver
+*.stamp
+*.log
+*.trs
+*.scan
