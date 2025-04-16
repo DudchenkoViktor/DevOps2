@@ -1,3 +1,8 @@
+AUTHORS
+ChangeLog
+NEWS
+INSTALL
+COPYING
 *.o
 *.Po
 *.tar.gz
