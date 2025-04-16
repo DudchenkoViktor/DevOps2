@@ -1,12 +1,19 @@
 #!/bin/bash
-for i in {1..20}; do
-    while true; do
-        sleep_time=$((RANDOM % 3 + 1))  # 1-3 секунды
-        sleep $sleep_time
-        curl -s "http://localhost?sleep=$((RANDOM % 3))" >/dev/null &
-    done &
+CONCURRENCY=100      # Увеличили количество параллельных процессов
+REQUEST_DURATION=3   # Увеличили длительность запросов
+INTERVAL=0.01        # Уменьшили интервал между запросами
+
+echo "Starting load test with $CONCURRENCY concurrent processes..."
+for i in $(seq 1 $CONCURRENCY); do
+    (
+        while true; do
+            curl -s "http://localhost?sleep=$REQUEST_DURATION" >/dev/null &
+            sleep $INTERVAL
+        done
+    ) &
 done
 
-# Остановка через 5 минут
-sleep 300
+# Автоматическое завершение через 15 минут
+sleep 900
 pkill -f "curl"
+echo "Load test completed"
