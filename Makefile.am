@@ -1,4 +1,4 @@
-AUTOMAKE_OPTIONS = subdir-objects
+AUTOMAKE_OPTIONS = foreign
 bin_PROGRAMS = program
 program_SOURCES = main.cpp opp/trigonometry.cpp
 program_CPPFLAGS = -I$(srcdir)/opp
