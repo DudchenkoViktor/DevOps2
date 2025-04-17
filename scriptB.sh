@@ -1,19 +1,15 @@
 #!/bin/bash
-CONCURRENCY=100      # Увеличили количество параллельных процессов
-REQUEST_DURATION=3   # Увеличили длительность запросов
-INTERVAL=0.01        # Уменьшили интервал между запросами
+CONCURRENCY=50  # Увеличили количество процессов
+DELAY=0.1       # Уменьшили задержку
 
-echo "Starting load test with $CONCURRENCY concurrent processes..."
+echo "Starting intensive load test..."
 for i in $(seq 1 $CONCURRENCY); do
-    (
-        while true; do
-            curl -s "http://localhost?sleep=$REQUEST_DURATION" >/dev/null &
-            sleep $INTERVAL
-        done
-    ) &
+    while true; do
+        curl -s "http://localhost?sleep=0.5" >/dev/null &
+        sleep $DELAY
+    done &
+    sleep 0.1
 done
 
-# Автоматическое завершение через 15 минут
-sleep 900
+sleep 600  # Работает 10 минут
 pkill -f "curl"
-echo "Load test completed"
