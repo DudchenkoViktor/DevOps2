@@ -1,15 +1,25 @@
 #!/bin/bash
-CONCURRENCY=50  # Увеличили количество процессов
-DELAY=0.1       # Уменьшили задержку
+MAX_WORKERS=40          # Безпечна кількість процесів
+REQUEST_DURATION=2      # Час виконання запиту
+RAMP_UP_STEPS=6         # Кроки нарощування
+STEP_DELAY=5            # Інтервал між кроками (5x6=30 сек до повної нагрузкі)
 
-echo "Starting intensive load test..."
-for i in $(seq 1 $CONCURRENCY); do
-    while true; do
-        curl -s "http://localhost?sleep=0.5" >/dev/null &
-        sleep $DELAY
-    done &
-    sleep 0.1
+cleanup() {
+    pkill -f "curl"
+    echo "Load test stopped"
+}
+trap cleanup EXIT
+
+echo "Starting smooth load test (ramp up in $((RAMP_UP_STEPS*STEP_DELAY)) seconds)"
+for ((workers=1; workers<=MAX_WORKERS; workers+=(MAX_WORKERS/RAMP_UP_STEPS))); do
+    echo "Current workers: $workers"
+    for ((i=1; i<=workers; i++)); do
+        while true; do
+            curl -s "http://localhost?sleep=$REQUEST_DURATION" >/dev/null &
+            sleep 0.3
+        done &
+    done
+    sleep $STEP_DELAY
 done
 
-sleep 600  # Работает 10 минут
-pkill -f "curl"
+sleep 600 # Тривалість тесту
